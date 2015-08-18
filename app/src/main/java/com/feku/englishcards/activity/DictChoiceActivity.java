@@ -33,7 +33,6 @@ public class DictChoiceActivity extends Activity implements AdapterView.OnItemCl
         Bundle bundle = new Bundle();
         bundle.putInt("ID", position);
         intent.putExtras(bundle);
-
         startActivity(intent);
     }
 

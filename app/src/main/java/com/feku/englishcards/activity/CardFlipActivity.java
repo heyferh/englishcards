@@ -23,7 +23,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.feku.englishcards.App;
 import com.feku.englishcards.R;
@@ -32,13 +31,14 @@ import com.feku.englishcards.entity.Card;
 
 public class CardFlipActivity extends Activity {
 
-    private static int dictionaryId = 0;
+    private static CardProducer cardProducer = App.getCardProducer();
+    private static Long dictionaryId = 0L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_flip);
-        int dictID = getIntent().getExtras().getInt("ID");
+        Long dictID = (long) getIntent().getExtras().getInt("ID");
         dictionaryId = dictID;
         if (savedInstanceState == null) {
             getFragmentManager()
@@ -65,12 +65,11 @@ public class CardFlipActivity extends Activity {
                 .commit();
     }
 
-    public void onToggleStar(View view) {
-        Toast.makeText(this, "Toggled!", Toast.LENGTH_LONG).show();
+    public void addToFavourites(View view) {
+
     }
 
     public static class CardFragment extends Fragment {
-        private CardProducer cardProducer = App.getCardProducer();
 
         public CardFragment() {
         }
