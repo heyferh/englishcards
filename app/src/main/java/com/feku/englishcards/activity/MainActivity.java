@@ -16,10 +16,11 @@ import com.feku.englishcards.entity.Dictionary;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.io.InputStream;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -32,7 +33,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        getPreferences(MODE_PRIVATE).edit().remove("DB_EXIST").commit();
         if (!getPreferences(MODE_PRIVATE).getBoolean("DB_EXIST", false)) {
             loadDictionaries();
         }
@@ -41,40 +42,40 @@ public class MainActivity extends Activity {
     }
 
     private void loadDictionaries() {
+        long start = System.currentTimeMillis();
         Resources resources = getResources();
-        String[] dictionaries = resources.getStringArray(R.array.dictionaries);
-        formatDictNames(dictionaries);
-        for (String fileName : dictionaries) {
-            InputStream inputStream = resources.openRawResource(resources.getIdentifier(fileName, "raw", getPackageName()));
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            try {
-                DocumentBuilder builder = factory.newDocumentBuilder();
-                Document document = builder.parse(inputStream);
-                NodeList nodeList = document.getElementsByTagName("card");
-                Long dictId = Long.valueOf(((Element) document.getFirstChild()).getAttribute("id"));
-                String title = ((Element) document.getFirstChild()).getAttribute("title");
-                dictionaryDao.insert(new Dictionary(dictId, title));
-                for (int i = 0; i < nodeList.getLength(); i++) {
-
-                    Node node = nodeList.item(i);
-                    Long cardId = Long.valueOf(((Element) node).getAttribute("id"));
-                    Card card = new Card(cardId, node.getFirstChild().getTextContent(), node.getLastChild().getTextContent(), dictId);
-                    cardDao.insert(card);
-                    Log.i("English Cards", "Inserted: " + dictId + " " + card);
+        InputStream inputStream = resources.openRawResource(resources.getIdentifier("full", "raw", getPackageName()));
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.parse(inputStream);
+            NodeList dictionaries = document.getElementsByTagName("dictionary");
+            Set<Dictionary> dictionarySet = new HashSet<>();
+            Set<Card> cardSet = new HashSet<>();
+            for (int i = 0; i < dictionaries.getLength(); i++) {
+                NodeList cards = dictionaries.item(i).getChildNodes();
+                Long dictionaryId = Long.valueOf(((Element) dictionaries.item(i)).getAttribute("id"));
+                String title = ((Element) dictionaries.item(i)).getAttribute("title");
+                dictionarySet.add(new Dictionary(dictionaryId, title));
+                for (int j = 0; j < cards.getLength(); j++) {
+                    String english = cards.item(j).getFirstChild().getTextContent();
+                    String russian = cards.item(j).getLastChild().getTextContent();
+                    Long cardId = Long.valueOf(((Element) cards.item(j)).getAttribute("id"));
+                    Card card = new Card(cardId, english, russian, dictionaryId);
+                    cardSet.add(card);
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+            cardDao.insertInTx(cardSet);
+            dictionaryDao.insertInTx(dictionarySet);
+            Log.i("English Card: ", "Total time consumed in millis: " + String.valueOf((System.currentTimeMillis() - start)));
+            Log.i("English Card: ", "Total dictionaries: " + dictionaryDao.loadAll().size());
+            Log.i("English Card: ", "Total cards: " + cardDao.loadAll().size());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("DB_EXIST", true);
         editor.commit();
-    }
-
-    private static void formatDictNames(String[] dictNames) {
-        for (int i = 0; i < dictNames.length; i++) {
-            dictNames[i] = dictNames[i].substring(dictNames[i].indexOf("|") + 1);
-        }
     }
 }

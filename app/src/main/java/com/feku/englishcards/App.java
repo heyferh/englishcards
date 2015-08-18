@@ -31,10 +31,14 @@ public class App extends android.app.Application {
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "db-test", null);
         db = helper.getWritableDatabase();
         daoMaster = new DaoMaster(db);
+        daoMaster.dropAllTables(db, true);
+
         daoSession = daoMaster.newSession();
         dictionaryDao = daoSession.getDictionaryDao();
         cardDao = daoSession.getCardDao();
         cardProducer = new CardProducer(dictionaryDao);
+        CardDao.createTable(db, true);
+        DictionaryDao.createTable(db, true);
     }
 
     public static CardProducer getCardProducer() {
