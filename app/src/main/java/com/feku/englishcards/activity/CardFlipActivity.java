@@ -22,15 +22,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.feku.englishcards.App;
 import com.feku.englishcards.R;
+import com.feku.englishcards.dao.CardDao;
 import com.feku.englishcards.dictionary.CardProducer;
 import com.feku.englishcards.entity.Card;
 
 public class CardFlipActivity extends Activity {
 
+    private CardDao cardDao = App.getCardDao();
     private static CardProducer cardProducer = App.getCardProducer();
     private static Long dictionaryId = 0L;
 
@@ -66,10 +69,18 @@ public class CardFlipActivity extends Activity {
     }
 
     public void addToFavourites(View view) {
-
+        CheckBox favourite = (CheckBox) findViewById(R.id.favourite);
+        Card card = CardFragment.card;
+        if (favourite.isChecked()) {
+            cardDao.load(card.getId()).setFavourite(true);
+        } else {
+            cardDao.load(card.getId()).setFavourite(false);
+        }
     }
 
+
     public static class CardFragment extends Fragment {
+        static Card card;
 
         public CardFragment() {
         }
@@ -78,7 +89,13 @@ public class CardFlipActivity extends Activity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_card, container, false);
-            Card card = cardProducer.getAnotherCard(dictionaryId);
+            card = cardProducer.getAnotherCard(dictionaryId);
+            CheckBox favourite = (CheckBox) view.findViewById(R.id.favourite);
+            if (card.getFavourite()) {
+                favourite.setChecked(true);
+            } else {
+                favourite.setChecked(false);
+            }
             ((TextView) view.findViewById(R.id.cardWord)).setText(card.getEnglishWord());
             ((TextView) view.findViewById(R.id.cardTranslation)).setText(card.getRussianWord());
             return view;

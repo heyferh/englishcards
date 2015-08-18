@@ -8,7 +8,7 @@ import de.greenrobot.daogenerator.Schema;
 /**
  * Created by feku on 8/18/2015.
  */
-public class ExDaoGenerator {
+public class MyDaoGenerator {
 
     public static void main(String[] args) throws Exception {
         Schema schema = new Schema(1000, "com.feku.englishcards.dao");
@@ -27,6 +27,7 @@ public class ExDaoGenerator {
         card.addIdProperty().getProperty();
         card.addStringProperty("englishWord").notNull();
         card.addStringProperty("russianWord").notNull();
+        card.addBooleanProperty("favourite");
         Property dictionaryId = card.addLongProperty("dictionaryId").notNull().getProperty();
 
         dictionary.addToMany(card, dictionaryId);

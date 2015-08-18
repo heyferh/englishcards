@@ -32,11 +32,10 @@ public class App extends android.app.Application {
         db = helper.getWritableDatabase();
         daoMaster = new DaoMaster(db);
         daoMaster.dropAllTables(db, true);
-
         daoSession = daoMaster.newSession();
         dictionaryDao = daoSession.getDictionaryDao();
         cardDao = daoSession.getCardDao();
-        cardProducer = new CardProducer(dictionaryDao);
+        cardProducer = new CardProducer(dictionaryDao, cardDao);
         CardDao.createTable(db, true);
         DictionaryDao.createTable(db, true);
     }

@@ -61,7 +61,7 @@ public class MainActivity extends Activity {
                     String english = cards.item(j).getFirstChild().getTextContent();
                     String russian = cards.item(j).getLastChild().getTextContent();
                     Long cardId = Long.valueOf(((Element) cards.item(j)).getAttribute("id"));
-                    Card card = new Card(cardId, english, russian, dictionaryId);
+                    Card card = new Card(cardId, english, russian, false, dictionaryId);
                     cardSet.add(card);
                 }
             }

@@ -16,6 +16,7 @@ public class Card {
      * Not-null value.
      */
     private String russianWord;
+    private Boolean favourite;
     private long dictionaryId;
 
     public Card() {
@@ -25,10 +26,11 @@ public class Card {
         this.id = id;
     }
 
-    public Card(Long id, String englishWord, String russianWord, long dictionaryId) {
+    public Card(Long id, String englishWord, String russianWord, Boolean favourite, long dictionaryId) {
         this.id = id;
         this.englishWord = englishWord;
         this.russianWord = russianWord;
+        this.favourite = favourite;
         this.dictionaryId = dictionaryId;
     }
 
@@ -68,6 +70,14 @@ public class Card {
         this.russianWord = russianWord;
     }
 
+    public Boolean getFavourite() {
+        return favourite;
+    }
+
+    public void setFavourite(Boolean favourite) {
+        this.favourite = favourite;
+    }
+
     public long getDictionaryId() {
         return dictionaryId;
     }
@@ -76,13 +86,4 @@ public class Card {
         this.dictionaryId = dictionaryId;
     }
 
-    @Override
-    public String toString() {
-        return "Card{" +
-                "id=" + id +
-                ", englishWord='" + englishWord + '\'' +
-                ", russianWord='" + russianWord + '\'' +
-                ", dictionaryId=" + dictionaryId +
-                '}';
-    }
 }
