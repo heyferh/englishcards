@@ -16,9 +16,12 @@
 
 package com.feku.englishcards.activity;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
+import android.os.Build;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,9 +34,12 @@ import com.feku.englishcards.dao.CardDao;
 import com.feku.englishcards.dictionary.CardProducer;
 import com.feku.englishcards.entity.Card;
 
+import java.util.Locale;
+
 public class CardFlipActivity extends Activity {
 
     private CardDao cardDao = App.getCardDao();
+    private TextToSpeech textToSpeech;
     private static CardProducer cardProducer = App.getCardProducer();
     private static Long dictionaryId = 0L;
 
@@ -42,6 +48,12 @@ public class CardFlipActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_flip);
         Long dictID = (long) getIntent().getExtras().getInt("ID");
+        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+            }
+        });
+        textToSpeech.setLanguage(Locale.US);
         dictionaryId = dictID;
         if (savedInstanceState == null) {
             getFragmentManager()
@@ -76,6 +88,11 @@ public class CardFlipActivity extends Activity {
         } else {
             cardDao.load(card.getId()).setFavourite(false);
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public void sound(View view) {
+        textToSpeech.speak(CardFragment.card.getEnglishWord(), TextToSpeech.QUEUE_FLUSH, null);
     }
 
 

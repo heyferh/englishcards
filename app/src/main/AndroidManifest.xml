@@ -10,9 +10,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activity.DictChoiceActivity"></activity>
         <activity android:name=".activity.CardFlipActivity" />
-        <activity
-            android:name=".activity.MainActivity"
-            android:label="@string/title_activity_main">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.feku.englishcards.App;
-import com.feku.englishcards.R;
 import com.feku.englishcards.dao.CardDao;
 import com.feku.englishcards.dao.DictionaryDao;
 import com.feku.englishcards.entity.Card;
@@ -32,12 +31,9 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        getPreferences(MODE_PRIVATE).edit().remove("DB_EXIST").commit();
         if (!getPreferences(MODE_PRIVATE).getBoolean("DB_EXIST", false)) {
             loadDictionaries();
         }
-
         startActivity(new Intent(this, DictChoiceActivity.class));
     }
 

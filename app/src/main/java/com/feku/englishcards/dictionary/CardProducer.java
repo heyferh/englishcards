@@ -15,13 +15,12 @@ public class CardProducer {
     private CardDao cardDao;
     private DictionaryDao dictionaryDao;
 
-    //TODO: works not as expected, try to add a deque instead
+    //TODO: add the empty stack case
     public Card getAnotherCard(Long dictionaryId) {
         if (!this.dictionaryId.equals(dictionaryId)) {
             loadDictionary(dictionaryId);
             this.dictionaryId = dictionaryId;
         }
-        //
         return cardStack.pop();
     }
 
@@ -32,6 +31,7 @@ public class CardProducer {
 
 
     private void loadDictionary(Long dictionaryId) {
+        cardStack.clear();
         for (Card card : dictionaryDao.load(dictionaryId).getCardList()) {
             cardStack.push(card);
         }
