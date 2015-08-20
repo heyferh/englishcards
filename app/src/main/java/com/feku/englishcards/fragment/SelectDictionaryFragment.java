@@ -10,30 +10,36 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.feku.englishcards.App;
 import com.feku.englishcards.R;
+import com.feku.englishcards.dao.DictionaryDao;
+import com.feku.englishcards.entity.Dictionary;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DictSelect extends Fragment implements AdapterView.OnItemClickListener {
+public class SelectDictionaryFragment extends Fragment implements AdapterView.OnItemClickListener {
+    DictionaryDao dictionaryDao = App.getDictionaryDao();
 
-
-    public DictSelect() {
-        // Required empty public constructor
+    public SelectDictionaryFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_dictselect, container, false);
-        ListView lvMain = (ListView) view.findViewById(R.id.dictList);
-        String[] dictNames = getResources().getStringArray(R.array.dictionaries);
-        formatDictNames(dictNames);
+        View view = inflater.inflate(R.layout.select_dictionary_layout, container, false);
+        ListView dictList = (ListView) view.findViewById(R.id.dictList);
+        List<String> dictNames = new ArrayList<>();
+        for (Dictionary dictionary : dictionaryDao.loadAll()) {
+            dictNames.add(dictionary.getTitle());
+        }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, dictNames);
-        lvMain.setAdapter(adapter);
-        lvMain.setOnItemClickListener(this);
+        dictList.setAdapter(adapter);
+        dictList.setOnItemClickListener(this);
         return view;
     }
 
@@ -42,17 +48,12 @@ public class DictSelect extends Fragment implements AdapterView.OnItemClickListe
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         CardFlipFragment fragment = new CardFlipFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("ID", position);
+        bundle.putLong("DICTIONARY_ID", position);
         fragment.setArguments(bundle);
         getFragmentManager()
                 .beginTransaction()
-                .replace(R.id.activityContainer, fragment)
+                .replace(R.id.container, fragment)
                 .commit();
     }
 
-    private static void formatDictNames(String[] dictNames) {
-        for (int i = 0; i < dictNames.length; i++) {
-            dictNames[i] = dictNames[i].substring(0, dictNames[i].indexOf("|"));
-        }
-    }
 }

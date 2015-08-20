@@ -1,12 +1,16 @@
 package com.feku.englishcards;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.speech.tts.TextToSpeech;
 
 import com.feku.englishcards.dao.CardDao;
 import com.feku.englishcards.dao.DictionaryDao;
 import com.feku.englishcards.dao.util.DaoMaster;
 import com.feku.englishcards.dao.util.DaoSession;
+import com.feku.englishcards.dao.util.DataBaseLoader;
 import com.feku.englishcards.dictionary.CardProducer;
+
+import java.util.Locale;
 
 /**
  * Created by feku on 8/14/2015.
@@ -16,12 +20,18 @@ public class App extends android.app.Application {
     private SQLiteDatabase db;
     private DaoMaster daoMaster;
     private DaoSession daoSession;
-    private DictionaryDao dictionaryDao;
     private CardProducer cardProducer;
+    private DictionaryDao dictionaryDao;
     private CardDao cardDao;
+    private DataBaseLoader dataBaseLoader;
+    private TextToSpeech textToSpeech;
 
     public static App getInstance() {
         return appInstance;
+    }
+
+    public static TextToSpeech getTextToSpeech() {
+        return getInstance().textToSpeech;
     }
 
     @Override
@@ -34,7 +44,14 @@ public class App extends android.app.Application {
         daoSession = daoMaster.newSession();
         dictionaryDao = daoSession.getDictionaryDao();
         cardDao = daoSession.getCardDao();
+        dataBaseLoader = new DataBaseLoader(getApplicationContext());
         cardProducer = new CardProducer(dictionaryDao, cardDao);
+        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+            }
+        });
+        textToSpeech.setLanguage(Locale.US);
     }
 
     public static CardProducer getCardProducer() {
@@ -47,5 +64,9 @@ public class App extends android.app.Application {
 
     public static DictionaryDao getDictionaryDao() {
         return getInstance().dictionaryDao;
+    }
+
+    public static DataBaseLoader getDataBaseLoader() {
+        return getInstance().dataBaseLoader;
     }
 }
