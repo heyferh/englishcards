@@ -1,5 +1,6 @@
 package com.feku.englishcards.activity;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,6 +9,8 @@ import android.widget.AdapterView;
 
 import com.feku.englishcards.R;
 import com.feku.englishcards.dao.util.DataBaseLoader;
+import com.feku.englishcards.fragment.CardFragment;
+import com.feku.englishcards.fragment.FavouritesFragment;
 import com.feku.englishcards.fragment.SelectDictionaryFragment;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
@@ -40,9 +43,25 @@ public class MainActivity extends ActionBarActivity {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem iDrawerItem) {
+                        Fragment fragment;
+                        Bundle bundle = new Bundle();
+                        switch (i) {
+                            case 1:
+                                fragment = new SelectDictionaryFragment();
+                                bundle.putSerializable("CARD_TYPE", CardFragment.CardType.REGULAR);
+                                fragment.setArguments(bundle);
+                                break;
+                            case 2:
+                                fragment = new FavouritesFragment();
+                                bundle.putSerializable("CARD_TYPE", CardFragment.CardType.FAVOURITE);
+                                fragment.setArguments(bundle);
+                                break;
+                            default:
+                                fragment = new SelectDictionaryFragment();
+                        }
                         getFragmentManager()
                                 .beginTransaction()
-                                .replace(R.id.container, new SelectDictionaryFragment())
+                                .replace(R.id.container, fragment)
                                 .commit();
                     }
                 })

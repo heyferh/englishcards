@@ -41,7 +41,7 @@
                 android:id="@+id/speech"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:button="@drawable/ic_headphones_black_18dp"
+                android:button="@drawable/ic_volume_high_black_18dp"
                 android:layout_gravity="left|top"
                 android:checked="false" />
 

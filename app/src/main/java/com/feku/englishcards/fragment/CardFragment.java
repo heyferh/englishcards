@@ -34,8 +34,16 @@ public class CardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.card_layout, container, false);
-        dictionaryId = getArguments().getLong("DICTIONARY_ID", 0);
-        card = cardProducer.getAnotherCard(dictionaryId);
+
+        switch ((CardType) getArguments().getSerializable("CARD_TYPE")) {
+            case REGULAR:
+                dictionaryId = getArguments().getLong("DICTIONARY_ID", 0);
+                card = cardProducer.getAnotherCard(dictionaryId);
+                break;
+            case FAVOURITE:
+                card = cardProducer.getAnotherFavouriteCard();
+        }
+
         CheckBox favourite = (CheckBox) view.findViewById(R.id.favourite);
         if (card.getFavourite()) {
             favourite.setChecked(true);
@@ -63,14 +71,20 @@ public class CardFragment extends Fragment {
         CheckBox favourite = (CheckBox) view.findViewById(R.id.favourite);
         Card card = CardFragment.card;
         if (favourite.isChecked()) {
-            cardDao.load(card.getId()).setFavourite(true);
+            card.setFavourite(true);
+            cardDao.update(card);
         } else {
-            cardDao.load(card.getId()).setFavourite(false);
+            card.setFavourite(false);
+            cardDao.update(card);
         }
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void sound(View view) {
         textToSpeech.speak(CardFragment.card.getEnglishWord(), TextToSpeech.QUEUE_FLUSH, null);
+    }
+
+    public static enum CardType {
+        REGULAR, FAVOURITE;
     }
 }

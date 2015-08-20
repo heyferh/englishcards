@@ -49,6 +49,7 @@ public class SelectDictionaryFragment extends Fragment implements AdapterView.On
         CardFlipFragment fragment = new CardFlipFragment();
         Bundle bundle = new Bundle();
         bundle.putLong("DICTIONARY_ID", position);
+        bundle.putSerializable("CARD_TYPE", CardFragment.CardType.REGULAR);
         fragment.setArguments(bundle);
         getFragmentManager()
                 .beginTransaction()

@@ -11,7 +11,7 @@ import de.greenrobot.daogenerator.Schema;
 public class MyDaoGenerator {
 
     public static void main(String[] args) throws Exception {
-        Schema schema = new Schema(1000, "com.feku.englishcards.dao");
+        Schema schema = new Schema(1, "com.feku.englishcards");
 
         addDictionary(schema);
 

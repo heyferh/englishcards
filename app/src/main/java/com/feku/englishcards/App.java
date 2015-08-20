@@ -40,7 +40,9 @@ public class App extends android.app.Application {
         appInstance = this;
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "db-test", null);
         db = helper.getWritableDatabase();
+
         daoMaster = new DaoMaster(db);
+
         daoSession = daoMaster.newSession();
         dictionaryDao = daoSession.getDictionaryDao();
         cardDao = daoSession.getCardDao();
@@ -64,9 +66,5 @@ public class App extends android.app.Application {
 
     public static DictionaryDao getDictionaryDao() {
         return getInstance().dictionaryDao;
-    }
-
-    public static DataBaseLoader getDataBaseLoader() {
-        return getInstance().dataBaseLoader;
     }
 }

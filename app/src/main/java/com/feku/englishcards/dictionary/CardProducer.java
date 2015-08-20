@@ -4,6 +4,7 @@ import com.feku.englishcards.dao.CardDao;
 import com.feku.englishcards.dao.DictionaryDao;
 import com.feku.englishcards.entity.Card;
 
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -12,6 +13,7 @@ import java.util.Stack;
 public class CardProducer {
     private Long dictionaryId = -1L;
     private Stack<Card> cardStack = new Stack<>();
+    private Stack<Card> favouriteCardStack = new Stack<>();
     private CardDao cardDao;
     private DictionaryDao dictionaryDao;
 
@@ -22,6 +24,18 @@ public class CardProducer {
             this.dictionaryId = dictionaryId;
         }
         return cardStack.pop();
+    }
+
+    public Card getAnotherFavouriteCard() {
+        if (favouriteCardStack.isEmpty()) {
+            List<Card> list = cardDao.queryBuilder()
+                    .where(CardDao.Properties.Favourite.eq(Boolean.TRUE))
+                    .list();
+            for (Card card : list) {
+                favouriteCardStack.push(card);
+            }
+        }
+        return favouriteCardStack.pop();
     }
 
     public CardProducer(DictionaryDao dictionaryDao, CardDao cardDao) {
