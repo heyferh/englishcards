@@ -29,6 +29,7 @@ import java.util.List;
 public class SelectDictionaryFragment extends Fragment implements AdapterView.OnItemClickListener {
     DictionaryDao dictionaryDao = App.getDictionaryDao();
     ArrayAdapter<String> adapter;
+    List<String> dictNames;
 
     public SelectDictionaryFragment() {
     }
@@ -38,7 +39,7 @@ public class SelectDictionaryFragment extends Fragment implements AdapterView.On
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.select_dictionary_layout, container, false);
         ListView dictList = (ListView) view.findViewById(R.id.dictList);
-        List<String> dictNames = new ArrayList<>();
+        dictNames = new ArrayList<>();
         for (Dictionary dictionary : dictionaryDao.loadAll()) {
             dictNames.add(dictionary.getTitle());
         }
@@ -55,7 +56,7 @@ public class SelectDictionaryFragment extends Fragment implements AdapterView.On
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         CardFlipFragment fragment = new CardFlipFragment();
         Bundle bundle = new Bundle();
-        bundle.putLong("DICTIONARY_ID", position);
+        bundle.putLong("DICTIONARY_ID", dictNames.indexOf(parent.getItemAtPosition(position)));
         bundle.putSerializable("CARD_TYPE", CardFragment.CardType.REGULAR);
         fragment.setArguments(bundle);
         getFragmentManager()
