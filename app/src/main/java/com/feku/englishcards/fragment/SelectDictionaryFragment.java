@@ -3,7 +3,12 @@ package com.feku.englishcards.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -23,6 +28,7 @@ import java.util.List;
  */
 public class SelectDictionaryFragment extends Fragment implements AdapterView.OnItemClickListener {
     DictionaryDao dictionaryDao = App.getDictionaryDao();
+    ArrayAdapter<String> adapter;
 
     public SelectDictionaryFragment() {
     }
@@ -36,13 +42,14 @@ public class SelectDictionaryFragment extends Fragment implements AdapterView.On
         for (Dictionary dictionary : dictionaryDao.loadAll()) {
             dictNames.add(dictionary.getTitle());
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
+        adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, dictNames);
         dictList.setAdapter(adapter);
         dictList.setOnItemClickListener(this);
+        setHasOptionsMenu(true);
+        view.findViewById(R.id.action_search);
         return view;
     }
-
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -57,4 +64,23 @@ public class SelectDictionaryFragment extends Fragment implements AdapterView.On
                 .commit();
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return true;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 }
