@@ -50,4 +50,9 @@ public class CardProducer {
             cardStack.push(card);
         }
     }
+
+    //TODO: Reconsider purpose of the CardProducer
+    public Card getAnotherLeitnerCard(int cardLevel) {
+        return null;
+    }
 }

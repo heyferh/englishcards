@@ -47,19 +47,21 @@ public class MainActivity extends AppCompatActivity {
                         Fragment fragment;
                         Bundle bundle = new Bundle();
                         switch (i) {
+                            default:
                             case 1:
                                 fragment = new SelectDictionaryFragment();
                                 bundle.putSerializable("CARD_TYPE", CardFragment.CardType.REGULAR);
-                                fragment.setArguments(bundle);
                                 break;
                             case 2:
                                 fragment = new FavouritesFragment();
                                 bundle.putSerializable("CARD_TYPE", CardFragment.CardType.FAVOURITE);
-                                fragment.setArguments(bundle);
                                 break;
-                            default:
+                            case 3:
+                                bundle.putSerializable("CARD_TYPE", CardFragment.CardType.LEITNER);
                                 fragment = new LeitnersModeFragment();
+                                break;
                         }
+                        fragment.setArguments(bundle);
                         getFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.container, fragment)

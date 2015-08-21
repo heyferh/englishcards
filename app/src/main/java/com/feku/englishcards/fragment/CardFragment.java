@@ -42,6 +42,10 @@ public class CardFragment extends Fragment {
                 break;
             case FAVOURITE:
                 card = cardProducer.getAnotherFavouriteCard();
+                break;
+            case LEITNER:
+                card = cardProducer.getAnotherLeitnerCard(getArguments().getInt("CARD_LEVEL", 1));
+                break;
         }
 
         CheckBox favourite = (CheckBox) view.findViewById(R.id.favourite);
@@ -85,6 +89,6 @@ public class CardFragment extends Fragment {
     }
 
     public static enum CardType {
-        REGULAR, FAVOURITE;
+        REGULAR, FAVOURITE, LEITNER;
     }
 }
