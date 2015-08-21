@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:myApp="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/lv_picker"
+        android:title="Choose level"
+        myApp:showAsAction="ifRoom|withText">
+        <menu>
+            <item
+                android:id="@+id/leitner_lv_1"
+                android:title="Level 1" />
+            <item
+                android:id="@+id/leitner_lv_2"
+                android:title="Level 2" />
+            <item
+                android:id="@+id/leitner_lv_3"
+                android:title="Level 3" />
+        </menu>
+    </item>
+</menu>

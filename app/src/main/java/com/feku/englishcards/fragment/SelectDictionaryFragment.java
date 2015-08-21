@@ -17,6 +17,7 @@ import android.widget.ListView;
 
 import com.feku.englishcards.App;
 import com.feku.englishcards.R;
+import com.feku.englishcards.activity.MainActivity;
 import com.feku.englishcards.dao.DictionaryDao;
 import com.feku.englishcards.entity.Dictionary;
 
@@ -48,6 +49,7 @@ public class SelectDictionaryFragment extends Fragment implements AdapterView.On
         dictList.setAdapter(adapter);
         dictList.setOnItemClickListener(this);
         setHasOptionsMenu(true);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Choose topic");
         view.findViewById(R.id.action_search);
         return view;
     }

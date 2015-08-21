@@ -7,12 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.feku.englishcards.App;
 import com.feku.englishcards.R;
+import com.feku.englishcards.activity.MainActivity;
+import com.feku.englishcards.dao.DictionaryDao;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class CardFlipFragment extends Fragment {
+    DictionaryDao dictionaryDao = App.getDictionaryDao();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,6 +36,9 @@ public class CardFlipFragment extends Fragment {
                 flipCard();
             }
         });
+
+        Long dictId = getArguments().getLong("DICTIONARY_ID");
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(dictionaryDao.load(dictId).getTitle());
         return view;
     }
 

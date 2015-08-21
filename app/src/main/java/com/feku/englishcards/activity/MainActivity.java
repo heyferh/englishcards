@@ -2,7 +2,7 @@ package com.feku.englishcards.activity;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,6 +11,7 @@ import com.feku.englishcards.R;
 import com.feku.englishcards.dao.util.DataBaseLoader;
 import com.feku.englishcards.fragment.CardFragment;
 import com.feku.englishcards.fragment.FavouritesFragment;
+import com.feku.englishcards.fragment.LeitnersModeFragment;
 import com.feku.englishcards.fragment.SelectDictionaryFragment;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
@@ -19,7 +20,7 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +38,7 @@ public class MainActivity extends ActionBarActivity {
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_browse).withIcon(FontAwesome.Icon.faw_archive).withIdentifier(1),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_view_starred).withIcon(FontAwesome.Icon.faw_star).withIdentifier(2),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_leitner_mode).withIcon(FontAwesome.Icon.faw_line_chart).withIdentifier(3),
+                        new PrimaryDrawerItem().withName(R.string.drawer_item_leitner_system).withIcon(FontAwesome.Icon.faw_line_chart).withIdentifier(3),
                         new SectionDrawerItem().withName(R.string.drawer_item_settings),
                         new SecondaryDrawerItem().withName(R.string.drawer_item_secondary).withIcon(FontAwesome.Icon.faw_cog))
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -57,7 +58,7 @@ public class MainActivity extends ActionBarActivity {
                                 fragment.setArguments(bundle);
                                 break;
                             default:
-                                fragment = new SelectDictionaryFragment();
+                                fragment = new LeitnersModeFragment();
                         }
                         getFragmentManager()
                                 .beginTransaction()

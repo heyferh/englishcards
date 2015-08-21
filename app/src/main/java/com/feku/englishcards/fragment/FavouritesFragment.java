@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.feku.englishcards.R;
+import com.feku.englishcards.activity.MainActivity;
 
 /**
  * Created by feku on 8/20/2015.
@@ -31,6 +32,7 @@ public class FavouritesFragment extends Fragment {
                 flipCard();
             }
         });
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Favourite words");
         return view;
     }
 
