@@ -12,6 +12,8 @@ public class Card {
     /** Not-null value. */
     private String russianWord;
     private Boolean favourite;
+    private Integer cardLevel;
+    private java.util.Date updated;
     private long dictionaryId;
 
     public Card() {
@@ -21,11 +23,13 @@ public class Card {
         this.id = id;
     }
 
-    public Card(Long id, String englishWord, String russianWord, Boolean favourite, long dictionaryId) {
+    public Card(Long id, String englishWord, String russianWord, Boolean favourite, Integer cardLevel, java.util.Date updated, long dictionaryId) {
         this.id = id;
         this.englishWord = englishWord;
         this.russianWord = russianWord;
         this.favourite = favourite;
+        this.cardLevel = cardLevel;
+        this.updated = updated;
         this.dictionaryId = dictionaryId;
     }
 
@@ -63,6 +67,22 @@ public class Card {
 
     public void setFavourite(Boolean favourite) {
         this.favourite = favourite;
+    }
+
+    public Integer getCardLevel() {
+        return cardLevel;
+    }
+
+    public void setCardLevel(Integer cardLevel) {
+        this.cardLevel = cardLevel;
+    }
+
+    public java.util.Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(java.util.Date updated) {
+        this.updated = updated;
     }
 
     public long getDictionaryId() {

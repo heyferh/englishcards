@@ -24,7 +24,7 @@ public class CardFragment extends Fragment {
     private static TextToSpeech textToSpeech = App.getTextToSpeech();
     private static long dictionaryId;
     private static CardDao cardDao = App.getCardDao();
-    private static Card card;
+    static Card card;
     private static CardProducer cardProducer = App.getCardProducer();
 
     public CardFragment() {
@@ -44,7 +44,7 @@ public class CardFragment extends Fragment {
                 card = cardProducer.getAnotherFavouriteCard();
                 break;
             case LEITNER:
-                card = cardProducer.getAnotherLeitnerCard(getArguments().getInt("CARD_LEVEL", 1));
+                card = cardProducer.getAnotherLeitnerCard(getArguments().getInt("CARD_LEVEL", 0));
                 break;
         }
 

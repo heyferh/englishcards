@@ -32,7 +32,9 @@ public class CardDao extends AbstractDao<Card, Long> {
         public final static Property EnglishWord = new Property(1, String.class, "englishWord", false, "ENGLISH_WORD");
         public final static Property RussianWord = new Property(2, String.class, "russianWord", false, "RUSSIAN_WORD");
         public final static Property Favourite = new Property(3, Boolean.class, "favourite", false, "FAVOURITE");
-        public final static Property DictionaryId = new Property(4, long.class, "dictionaryId", false, "DICTIONARY_ID");
+        public final static Property CardLevel = new Property(4, Integer.class, "cardLevel", false, "CARD_LEVEL");
+        public final static Property Updated = new Property(5, java.util.Date.class, "updated", false, "UPDATED");
+        public final static Property DictionaryId = new Property(6, long.class, "dictionaryId", false, "DICTIONARY_ID");
     };
 
     private Query<Card> dictionary_CardListQuery;
@@ -53,7 +55,9 @@ public class CardDao extends AbstractDao<Card, Long> {
                 "\"ENGLISH_WORD\" TEXT NOT NULL ," + // 1: englishWord
                 "\"RUSSIAN_WORD\" TEXT NOT NULL ," + // 2: russianWord
                 "\"FAVOURITE\" INTEGER," + // 3: favourite
-                "\"DICTIONARY_ID\" INTEGER NOT NULL );"); // 4: dictionaryId
+                "\"CARD_LEVEL\" INTEGER," + // 4: cardLevel
+                "\"UPDATED\" INTEGER," + // 5: updated
+                "\"DICTIONARY_ID\" INTEGER NOT NULL );"); // 6: dictionaryId
     }
 
     /** Drops the underlying database table. */
@@ -78,7 +82,17 @@ public class CardDao extends AbstractDao<Card, Long> {
         if (favourite != null) {
             stmt.bindLong(4, favourite ? 1L: 0L);
         }
-        stmt.bindLong(5, entity.getDictionaryId());
+ 
+        Integer cardLevel = entity.getCardLevel();
+        if (cardLevel != null) {
+            stmt.bindLong(5, cardLevel);
+        }
+ 
+        java.util.Date updated = entity.getUpdated();
+        if (updated != null) {
+            stmt.bindLong(6, updated.getTime());
+        }
+        stmt.bindLong(7, entity.getDictionaryId());
     }
 
     /** @inheritdoc */
@@ -95,7 +109,9 @@ public class CardDao extends AbstractDao<Card, Long> {
             cursor.getString(offset + 1), // englishWord
             cursor.getString(offset + 2), // russianWord
             cursor.isNull(offset + 3) ? null : cursor.getShort(offset + 3) != 0, // favourite
-            cursor.getLong(offset + 4) // dictionaryId
+            cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4), // cardLevel
+            cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)), // updated
+            cursor.getLong(offset + 6) // dictionaryId
         );
         return entity;
     }
@@ -107,7 +123,9 @@ public class CardDao extends AbstractDao<Card, Long> {
         entity.setEnglishWord(cursor.getString(offset + 1));
         entity.setRussianWord(cursor.getString(offset + 2));
         entity.setFavourite(cursor.isNull(offset + 3) ? null : cursor.getShort(offset + 3) != 0);
-        entity.setDictionaryId(cursor.getLong(offset + 4));
+        entity.setCardLevel(cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4));
+        entity.setUpdated(cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)));
+        entity.setDictionaryId(cursor.getLong(offset + 6));
      }
     
     /** @inheritdoc */

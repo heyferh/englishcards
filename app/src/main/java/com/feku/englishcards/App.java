@@ -42,10 +42,12 @@ public class App extends android.app.Application {
         db = helper.getWritableDatabase();
 
         daoMaster = new DaoMaster(db);
-
+        daoMaster.dropAllTables(db, true);
         daoSession = daoMaster.newSession();
         dictionaryDao = daoSession.getDictionaryDao();
         cardDao = daoSession.getCardDao();
+        CardDao.createTable(db, true);
+        DictionaryDao.createTable(db, true);
         dataBaseLoader = new DataBaseLoader(getApplicationContext());
         cardProducer = new CardProducer(dictionaryDao, cardDao);
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {

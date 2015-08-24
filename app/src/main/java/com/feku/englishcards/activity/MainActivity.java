@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSharedPreferences("english_cards", MODE_PRIVATE).edit().putBoolean("DB_EXIST", false).commit();
         if (!getSharedPreferences("english_cards", MODE_PRIVATE).getBoolean("DB_EXIST", false)) {
             DataBaseLoader.loadDictionaries();
         }

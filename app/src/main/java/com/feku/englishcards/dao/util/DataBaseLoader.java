@@ -11,6 +11,7 @@ import com.feku.englishcards.dao.DictionaryDao;
 import com.feku.englishcards.entity.Card;
 import com.feku.englishcards.entity.Dictionary;
 
+import org.joda.time.LocalDate;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -54,7 +55,7 @@ public class DataBaseLoader {
                     String english = cards.item(j).getFirstChild().getTextContent();
                     String russian = cards.item(j).getLastChild().getTextContent();
                     Long cardId = Long.valueOf(((Element) cards.item(j)).getAttribute("id"));
-                    Card card = new Card(cardId, english, russian, false, dictionaryId);
+                    Card card = new Card(cardId, english, russian, false, 1, LocalDate.now().toDate(), dictionaryId);
                     cardSet.add(card);
                 }
             }

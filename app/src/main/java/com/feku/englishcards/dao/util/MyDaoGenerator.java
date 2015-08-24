@@ -28,6 +28,8 @@ public class MyDaoGenerator {
         card.addStringProperty("englishWord").notNull();
         card.addStringProperty("russianWord").notNull();
         card.addBooleanProperty("favourite");
+        card.addIntProperty("cardLevel");
+        card.addDateProperty("updated");
         Property dictionaryId = card.addLongProperty("dictionaryId").notNull().getProperty();
 
         dictionary.addToMany(card, dictionaryId);
