@@ -29,14 +29,18 @@
 
         <Button
             android:id="@+id/dontKnow"
-            android:layout_width="wrap_content"
+            style="?android:buttonBarButtonStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Don&apos;t know" />
 
         <Button
             android:id="@+id/know"
-            android:layout_width="wrap_content"
+            style="?android:buttonBarButtonStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="I know" />
     </LinearLayout>
 </FrameLayout>
