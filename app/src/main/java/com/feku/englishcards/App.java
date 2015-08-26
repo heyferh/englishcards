@@ -52,6 +52,9 @@ public class App extends android.app.Application {
             }
         });
         textToSpeech.setLanguage(Locale.US);
+        if (!getSharedPreferences("english_cards", MODE_PRIVATE).getBoolean("DB_EXIST", false)) {
+            DataBaseLoader.loadDictionaries();
+        }
     }
 
     public static CardProducer getCardProducer() {

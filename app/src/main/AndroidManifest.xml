@@ -14,6 +14,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.SelectDictionaryActivity"></activity>
+        <activity android:name=".activity.RegularCardActivity"></activity>
+        <activity android:name=".activity.FavouriteCardActivity"></activity>
+        <activity android:name=".activity.LeitnerModeActivity"></activity>
     </application>
 
 </manifest>
