@@ -20,6 +20,9 @@ public class LeitnerModeActivity extends ActivityWithDrawer implements CardFragm
 
     @Override
     protected void initOnCreate() {
+        drawer = drawer.withSelectedItem(2);
+        drawer.build().getActionBarDrawerToggle().setDrawerIndicatorEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Card card = cardProducer.getAnotherLeitnerCard(1);
         CardFragment newCard = CardFragment.newInstance(card);
         getFragmentManager()
@@ -57,6 +60,9 @@ public class LeitnerModeActivity extends ActivityWithDrawer implements CardFragm
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getTitle().toString().contains(String.valueOf(CARD_LEVEL))) {
+            return true;
+        }
         switch (item.getTitle().toString()) {
             case "Level 1":
                 CARD_LEVEL = 1;
@@ -78,5 +84,11 @@ public class LeitnerModeActivity extends ActivityWithDrawer implements CardFragm
                 .replace(R.id.container, cardFragment)
                 .commit();
         return true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
     }
 }

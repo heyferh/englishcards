@@ -64,6 +64,12 @@ public class SelectDictionaryActivity extends ActivityWithDrawer implements Adap
 
     @Override
     protected void initOnCreate() {
+        drawer = drawer
+                .withSelectedItem(0);
+        drawer.build().getActionBarDrawerToggle().setDrawerIndicatorEnabled(false);
+        //set the back arrow in the toolbar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         ListView dictList = (ListView) findViewById(R.id.dictList);
         dictNames = new ArrayList<>();
         for (Dictionary dictionary : dictionaryDao.loadAll()) {
@@ -74,5 +80,21 @@ public class SelectDictionaryActivity extends ActivityWithDrawer implements Adap
         dictList.setAdapter(adapter);
         dictList.setOnItemClickListener(this);
         getSupportActionBar().setTitle("Choose topic");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
     }
 }

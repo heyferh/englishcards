@@ -12,6 +12,9 @@ public class RegularCardActivity extends ActivityWithDrawer implements CardFragm
 
     @Override
     protected void initOnCreate() {
+        drawer = drawer.withSelectedItem(0);
+        drawer.build().getActionBarDrawerToggle().setDrawerIndicatorEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Card card = cardProducer.getAnotherCard(1l);
         CardFragment newCard = CardFragment.newInstance(card);
         getFragmentManager()
@@ -36,5 +39,11 @@ public class RegularCardActivity extends ActivityWithDrawer implements CardFragm
     @Override
     protected int getLayout() {
         return R.layout.default_layout;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
     }
 }

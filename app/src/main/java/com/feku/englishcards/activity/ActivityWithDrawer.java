@@ -19,15 +19,16 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
  * Created by feku on 8/26/2015.
  */
 public abstract class ActivityWithDrawer extends AppCompatActivity {
+    protected Drawer drawer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(false);
-        initOnCreate();
-        new Drawer()
+        drawer = new Drawer()
+                .withSelectedItem(2)
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withHeader(R.layout.drawer_header_layout)
@@ -53,13 +54,16 @@ public abstract class ActivityWithDrawer extends AppCompatActivity {
                                 break;
                         }
                     }
-                })
-                .build();
+                });
+
+        initOnCreate();
     }
 
     protected void initOnCreate() {
+        drawer = drawer.withSelectedItem(-1);
+        drawer.build();
     }
 
-
     protected abstract int getLayout();
+
 }
