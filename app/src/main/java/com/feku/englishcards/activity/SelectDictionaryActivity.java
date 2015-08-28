@@ -34,11 +34,9 @@ public class SelectDictionaryActivity extends ActivityWithDrawer implements Adap
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        Bundle bundle = new Bundle();
-//        bundle.putLong("DICTIONARY_ID", dictNames.indexOf(parent.getItemAtPosition(position)));
-//        bundle.putSerializable("CARD_TYPE", CardFragment.CardType.REGULAR);
-
-        startActivity(new Intent(getApplicationContext(), RegularCardActivity.class));
+        Intent cardIntent = new Intent(getApplicationContext(), RegularCardActivity.class);
+        cardIntent.putExtra("DICTIONARY_ID", dictNames.indexOf(parent.getItemAtPosition(position)));
+        startActivity(cardIntent);
     }
 
     @Override
@@ -66,10 +64,7 @@ public class SelectDictionaryActivity extends ActivityWithDrawer implements Adap
     protected void initOnCreate() {
         drawer = drawer
                 .withSelectedItem(0);
-        drawer.build().getActionBarDrawerToggle().setDrawerIndicatorEnabled(false);
-        //set the back arrow in the toolbar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        drawer.build();
         ListView dictList = (ListView) findViewById(R.id.dictList);
         dictNames = new ArrayList<>();
         for (Dictionary dictionary : dictionaryDao.loadAll()) {

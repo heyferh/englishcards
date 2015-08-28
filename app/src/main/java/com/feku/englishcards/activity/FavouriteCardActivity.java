@@ -15,8 +15,7 @@ public class FavouriteCardActivity extends ActivityWithDrawer implements CardFra
     @Override
     protected void initOnCreate() {
         drawer = drawer.withSelectedItem(1);
-        drawer.build().getActionBarDrawerToggle().setDrawerIndicatorEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        drawer.build();
         Card card = cardProducer.getAnotherFavouriteCard();
         CardFragment newCard = CardFragment.newInstance(card);
         getFragmentManager()

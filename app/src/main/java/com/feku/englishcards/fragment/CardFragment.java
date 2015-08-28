@@ -19,7 +19,12 @@ public class CardFragment extends Fragment {
     private static final String ARG_1 = "CURRENT_CARD";
     private TextToSpeech textToSpeech = App.getTextToSpeech();
     private CardDao cardDao = App.getCardDao();
-    private Card currentCard;
+
+    public static Card getCurrentCard() {
+        return currentCard;
+    }
+
+    private  static Card currentCard;
 
     private onCardActionListener mListener;
 

@@ -13,9 +13,9 @@ public class RegularCardActivity extends ActivityWithDrawer implements CardFragm
     @Override
     protected void initOnCreate() {
         drawer = drawer.withSelectedItem(0);
-        drawer.build().getActionBarDrawerToggle().setDrawerIndicatorEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Card card = cardProducer.getAnotherCard(1l);
+        drawer.build();
+
+        Card card = cardProducer.getAnotherCard((long) getIntent().getExtras().getInt("DICTIONARY_ID"));
         CardFragment newCard = CardFragment.newInstance(card);
         getFragmentManager()
                 .beginTransaction()
@@ -25,7 +25,7 @@ public class RegularCardActivity extends ActivityWithDrawer implements CardFragm
 
     @Override
     public void onCardTapped() {
-        Card card = cardProducer.getAnotherCard(1l);
+        Card card = cardProducer.getAnotherCard((long) getIntent().getExtras().getInt("DICTIONARY_ID"));
         CardFragment newCard = CardFragment.newInstance(card);
         getFragmentManager()
                 .beginTransaction()
