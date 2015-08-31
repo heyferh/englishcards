@@ -40,7 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="I know" />
+            android:text="I knew it!" />
 
         <Button
             android:id="@+id/dontKnow"
@@ -48,7 +48,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Don&apos;t know" />
+            android:text="Ok, I got it" />
 
     </LinearLayout>
 

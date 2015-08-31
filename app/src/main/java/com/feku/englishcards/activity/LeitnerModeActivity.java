@@ -21,13 +21,14 @@ import org.joda.time.LocalDate;
  * Created by feku on 8/26/2015.
  */
 public class LeitnerModeActivity extends ActivityWithDrawer implements CardFragment.onCardActionListener {
-    private static int CARD_LEVEL = 1;
+    private static int CARD_LEVEL;
     private CardDao cardDao = App.getCardDao();
     private CardProducer cardProducer = App.getCardProducer();
     MenuItem levelMenu;
 
     @Override
     protected void initOnCreate() {
+        CARD_LEVEL = 1;
         drawer = drawer.withSelectedItem(2);
         drawer.build();
         findViewById(R.id.know).setOnClickListener(new View.OnClickListener() {
