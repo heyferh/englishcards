@@ -17,7 +17,6 @@ public class CardProducer {
     private Long dictionaryId = -1L;
     private int cardLevel = 0;
     private Stack<Card> cardStack = new Stack<>();
-    private Stack<Card> favouriteCardStack = new Stack<>();
     private CardDao cardDao;
     private DictionaryDao dictionaryDao;
     private Stack<Card> leitnerStack = new Stack<>();
@@ -30,16 +29,10 @@ public class CardProducer {
         return cardStack.pop();
     }
 
-    public Card getAnotherFavouriteCard() {
-        if (favouriteCardStack.isEmpty()) {
-            List<Card> list = cardDao.queryBuilder()
-                    .where(CardDao.Properties.Favourite.eq(Boolean.TRUE))
-                    .list();
-            for (Card card : list) {
-                favouriteCardStack.push(card);
-            }
-        }
-        return favouriteCardStack.pop();
+    public List<Card> getAnotherFavouriteCard() {
+        return cardDao.queryBuilder()
+                .where(CardDao.Properties.Favourite.eq(Boolean.TRUE))
+                .list();
     }
 
     public CardProducer(DictionaryDao dictionaryDao, CardDao cardDao) {
