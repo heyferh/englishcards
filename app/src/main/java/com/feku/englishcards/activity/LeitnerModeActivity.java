@@ -29,6 +29,7 @@ public class LeitnerModeActivity extends ActivityWithDrawer implements CardFragm
     @Override
     protected void initOnCreate() {
         CARD_LEVEL = 1;
+        getSupportActionBar().setTitle("Leitner mode");
         drawer = drawer.withSelectedItem(2);
         drawer.build();
         findViewById(R.id.know).setOnClickListener(new View.OnClickListener() {

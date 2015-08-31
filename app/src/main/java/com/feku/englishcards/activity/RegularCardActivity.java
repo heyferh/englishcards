@@ -2,6 +2,7 @@ package com.feku.englishcards.activity;
 
 import com.feku.englishcards.App;
 import com.feku.englishcards.R;
+import com.feku.englishcards.dao.DictionaryDao;
 import com.feku.englishcards.dictionary.CardProducer;
 import com.feku.englishcards.entity.Card;
 import com.feku.englishcards.fragment.CardFragment;
@@ -9,9 +10,13 @@ import com.feku.englishcards.fragment.CardFragment;
 
 public class RegularCardActivity extends ActivityWithDrawer implements CardFragment.onCardActionListener {
     private CardProducer cardProducer = App.getCardProducer();
+    private DictionaryDao dictionaryDao = App.getDictionaryDao();
 
     @Override
     protected void initOnCreate() {
+        long dictionaryId = (long) getIntent().getExtras().getInt("DICTIONARY_ID");
+        String dictionaryTitle = dictionaryDao.load(dictionaryId).getTitle();
+        getSupportActionBar().setTitle(dictionaryTitle);
         drawer = drawer.withSelectedItem(0);
         drawer.build();
         onCardTapped();
