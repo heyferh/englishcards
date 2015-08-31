@@ -1,5 +1,6 @@
 package com.feku.englishcards.activity;
 
+import android.app.Fragment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -10,7 +11,9 @@ import com.feku.englishcards.R;
 import com.feku.englishcards.dao.CardDao;
 import com.feku.englishcards.dictionary.CardProducer;
 import com.feku.englishcards.entity.Card;
+import com.feku.englishcards.exception.NoCardsException;
 import com.feku.englishcards.fragment.CardFragment;
+import com.feku.englishcards.fragment.EmptyCardFragment;
 
 import org.joda.time.LocalDate;
 
@@ -39,12 +42,7 @@ public class LeitnerModeActivity extends ActivityWithDrawer implements CardFragm
                 resetLevel();
             }
         });
-        Card card = cardProducer.getAnotherLeitnerCard(1);
-        CardFragment newCard = CardFragment.newInstance(card);
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, newCard)
-                .commit();
+        onCardTapped();
     }
 
     private void increaseLevel() {
@@ -70,14 +68,21 @@ public class LeitnerModeActivity extends ActivityWithDrawer implements CardFragm
 
     @Override
     public void onCardTapped() {
-        Card card = cardProducer.getAnotherLeitnerCard(1);
-        CardFragment newCard = CardFragment.newInstance(card);
+        Fragment fragment;
+        try {
+            Card card = cardProducer.getAnotherLeitnerCard(CARD_LEVEL);
+            fragment = CardFragment.newInstance(card);
+        } catch (NoCardsException e) {
+            fragment = EmptyCardFragment.newInstance("No cards available at level " + CARD_LEVEL + " yet...");
+            findViewById(R.id.know).setVisibility(View.GONE);
+            findViewById(R.id.dontKnow).setVisibility(View.GONE);
+        }
         getFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(
                         R.animator.card_flip_right_in, R.animator.card_flip_right_out,
                         R.animator.card_flip_right_in, R.animator.card_flip_right_out)
-                .replace(R.id.container, newCard)
+                .replace(R.id.container, fragment)
                 .commit();
     }
 
@@ -109,12 +114,9 @@ public class LeitnerModeActivity extends ActivityWithDrawer implements CardFragm
                 return false;
         }
         levelMenu.setTitle(item.getTitle());
-        Card card = cardProducer.getAnotherLeitnerCard(CARD_LEVEL);
-        CardFragment cardFragment = CardFragment.newInstance(card);
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, cardFragment)
-                .commit();
+        findViewById(R.id.know).setVisibility(View.VISIBLE);
+        findViewById(R.id.dontKnow).setVisibility(View.VISIBLE);
+        onCardTapped();
         return true;
     }
 

@@ -3,6 +3,7 @@ package com.feku.englishcards.dictionary;
 import com.feku.englishcards.dao.CardDao;
 import com.feku.englishcards.dao.DictionaryDao;
 import com.feku.englishcards.entity.Card;
+import com.feku.englishcards.exception.NoCardsException;
 
 import org.joda.time.LocalDate;
 
@@ -26,6 +27,9 @@ public class CardProducer {
             loadDictionary(dictionaryId);
             this.dictionaryId = dictionaryId;
         }
+        if (cardStack.isEmpty()) {
+            loadDictionary(dictionaryId);
+        }
         return cardStack.pop();
     }
 
@@ -48,7 +52,7 @@ public class CardProducer {
         }
     }
 
-    public Card getAnotherLeitnerCard(int cardLevel) {
+    public Card getAnotherLeitnerCard(int cardLevel) throws NoCardsException {
         if (this.cardLevel != cardLevel) {
             loadAnotherLevel(cardLevel);
             this.cardLevel = cardLevel;
@@ -59,7 +63,7 @@ public class CardProducer {
         return leitnerStack.pop();
     }
 
-    private void loadAnotherLevel(int cardLevel) {
+    private void loadAnotherLevel(int cardLevel) throws NoCardsException {
         Date date;
         switch (cardLevel) {
             case 3:
@@ -76,6 +80,9 @@ public class CardProducer {
                 .where(CardDao.Properties.CardLevel.eq(cardLevel))
                 .where(CardDao.Properties.Updated.le(date))
                 .list();
+        if (list.isEmpty()) {
+            throw new NoCardsException();
+        }
         for (Card card : list) {
             leitnerStack.push(card);
         }

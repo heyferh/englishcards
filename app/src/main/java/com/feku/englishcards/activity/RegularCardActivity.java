@@ -14,13 +14,7 @@ public class RegularCardActivity extends ActivityWithDrawer implements CardFragm
     protected void initOnCreate() {
         drawer = drawer.withSelectedItem(0);
         drawer.build();
-
-        Card card = cardProducer.getAnotherCard((long) getIntent().getExtras().getInt("DICTIONARY_ID"));
-        CardFragment newCard = CardFragment.newInstance(card);
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, newCard)
-                .commit();
+        onCardTapped();
     }
 
     @Override
