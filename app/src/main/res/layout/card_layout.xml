@@ -34,7 +34,7 @@
                 android:alpha="0.2"
                 android:gravity="center"
                 android:text="TRANSLATION"
-                android:textSize="24dp" />
+                android:textSize="18dp" />
 
 
             <CheckBox

@@ -24,7 +24,7 @@ public class CardFragment extends Fragment {
         return currentCard;
     }
 
-    private  static Card currentCard;
+    private static Card currentCard;
 
     private onCardActionListener mListener;
 
@@ -53,7 +53,7 @@ public class CardFragment extends Fragment {
         View view = inflater.inflate(R.layout.card_layout, container, false);
 
         ((TextView) view.findViewById(R.id.cardWord)).setText(currentCard.getEnglishWord());
-        ((TextView) view.findViewById(R.id.cardTranslation)).setText(currentCard.getRussianWord());
+        ((TextView) view.findViewById(R.id.cardTranslation)).setText("SHOW TRANSLATION");
 
         CheckBox favourite = (CheckBox) view.findViewById(R.id.favourite);
         if (currentCard.getFavourite()) {
@@ -79,6 +79,12 @@ public class CardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mListener.onCardTapped();
+            }
+        });
+        view.findViewById(R.id.cardTranslation).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((TextView) v).setText(currentCard.getRussianWord());
             }
         });
         return view;
