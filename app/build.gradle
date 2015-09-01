@@ -33,4 +33,5 @@ dependencies {
     compile('com.mikepenz.materialdrawer:library:0.9.5@aar') {
         transitive = true
     }
+    compile 'com.bettervectordrawable:lib:0.4+'
 }

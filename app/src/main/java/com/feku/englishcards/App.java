@@ -1,8 +1,11 @@
 package com.feku.englishcards;
 
+import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
 import android.speech.tts.TextToSpeech;
 
+import com.bettervectordrawable.Convention;
+import com.bettervectordrawable.VectorDrawableCompat;
 import com.feku.englishcards.dao.CardDao;
 import com.feku.englishcards.dao.DictionaryDao;
 import com.feku.englishcards.dao.util.DaoMaster;
@@ -15,7 +18,7 @@ import java.util.Locale;
 /**
  * Created by feku on 8/14/2015.
  */
-public class App extends android.app.Application {
+public class App extends Application {
     private static App appInstance;
     private SQLiteDatabase db;
     private DaoMaster daoMaster;
@@ -55,6 +58,8 @@ public class App extends android.app.Application {
         if (!getSharedPreferences("english_cards", MODE_PRIVATE).getBoolean("DB_EXIST", false)) {
             DataBaseLoader.loadDictionaries();
         }
+        int[] ids = VectorDrawableCompat.findVectorResourceIdsByConvention(getResources(), R.drawable.class, Convention.ResourceNameHasVectorSuffix);
+        VectorDrawableCompat.enableResourceInterceptionFor(getResources(), ids);
     }
 
     public static CardProducer getCardProducer() {
