@@ -37,7 +37,7 @@ public abstract class ActivityWithDrawer extends AppCompatActivity {
                         new PrimaryDrawerItem().withName(R.string.drawer_item_view_starred).withIcon(FontAwesome.Icon.faw_star).withIdentifier(2),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_leitner_system).withIcon(FontAwesome.Icon.faw_line_chart).withIdentifier(3),
                         new SectionDrawerItem().withName(R.string.drawer_item_settings),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_secondary).withIcon(FontAwesome.Icon.faw_cog))
+                        new SecondaryDrawerItem().withName(R.string.statistics).withIcon(FontAwesome.Icon.faw_cog))
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem iDrawerItem) {

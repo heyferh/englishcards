@@ -17,6 +17,8 @@ import com.feku.englishcards.fragment.EmptyCardFragment;
 
 import org.joda.time.LocalDate;
 
+import java.util.Date;
+
 /**
  * Created by feku on 8/26/2015.
  */
@@ -75,7 +77,12 @@ public class LeitnerModeActivity extends ActivityWithDrawer implements CardFragm
             Card card = cardProducer.getAnotherLeitnerCard(CARD_LEVEL);
             fragment = CardFragment.newInstance(card);
         } catch (NoCardsException e) {
-            fragment = EmptyCardFragment.newInstance("No cards available at level " + CARD_LEVEL + " yet...");
+            LocalDate date = findNearestDate(CARD_LEVEL);
+            if (date != null) {
+                fragment = EmptyCardFragment.newInstance("No cards available at level " + CARD_LEVEL + " until " + date);
+            } else {
+                fragment = EmptyCardFragment.newInstance("There are no cards at level " + CARD_LEVEL + " yet");
+            }
             findViewById(R.id.know).setVisibility(View.GONE);
             findViewById(R.id.dontKnow).setVisibility(View.GONE);
         }
@@ -86,6 +93,27 @@ public class LeitnerModeActivity extends ActivityWithDrawer implements CardFragm
                         R.animator.card_flip_right_in, R.animator.card_flip_right_out)
                 .replace(R.id.container, fragment)
                 .commit();
+    }
+
+    private LocalDate findNearestDate(int cardLevel) {
+        LocalDate nearestDate = LocalDate.now().plusDays(1);
+        Card card = cardDao.queryBuilder()
+                .where(CardDao.Properties.CardLevel.eq(cardLevel))
+                .orderAsc(CardDao.Properties.Updated)
+                .limit(1).unique();
+        if (card == null) {
+            return null;
+        }
+        Date updated = card.getUpdated();
+        switch (cardLevel) {
+            case 2:
+                nearestDate = LocalDate.fromDateFields(updated).plusDays(3);
+                break;
+            case 3:
+                nearestDate = LocalDate.fromDateFields(updated).plusDays(5);
+                break;
+        }
+        return nearestDate;
     }
 
     @Override
