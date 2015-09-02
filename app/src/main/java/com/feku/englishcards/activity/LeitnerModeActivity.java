@@ -127,4 +127,9 @@ public class LeitnerModeActivity extends ActivityWithDrawer implements CardFragm
         super.onPause();
         finish();
     }
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+    }
 }
