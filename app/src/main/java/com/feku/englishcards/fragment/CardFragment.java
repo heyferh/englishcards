@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.feku.englishcards.App;
 import com.feku.englishcards.R;
+import com.feku.englishcards.activity.LeitnerModeActivity;
 import com.feku.englishcards.dao.CardDao;
 import com.feku.englishcards.entity.Card;
 
@@ -53,7 +54,7 @@ public class CardFragment extends Fragment {
         View view = inflater.inflate(R.layout.card_layout, container, false);
 
         ((TextView) view.findViewById(R.id.cardWord)).setText(currentCard.getEnglishWord());
-        ((TextView) view.findViewById(R.id.cardTranslation)).setText("SHOW TRANSLATION");
+
 
         CheckBox favourite = (CheckBox) view.findViewById(R.id.favourite);
         if (currentCard.getFavourite()) {
@@ -81,12 +82,17 @@ public class CardFragment extends Fragment {
                 mListener.onCardTapped();
             }
         });
-        view.findViewById(R.id.cardTranslation).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((TextView) v).setText(currentCard.getRussianWord());
-            }
-        });
+        if (getActivity() instanceof LeitnerModeActivity) {
+            ((TextView) view.findViewById(R.id.cardTranslation)).setText("SHOW TRANSLATION");
+            view.findViewById(R.id.cardTranslation).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((TextView) v).setText(currentCard.getRussianWord());
+                }
+            });
+        } else {
+            ((TextView) view.findViewById(R.id.cardTranslation)).setText(currentCard.getRussianWord());
+        }
         return view;
     }
 
