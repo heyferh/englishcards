@@ -57,7 +57,6 @@ public class App extends Application {
             DataBaseLoader.loadDictionaries();
         }
     }
-
     public static CardProducer getCardProducer() {
         return getInstance().cardProducer;
     }

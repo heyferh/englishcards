@@ -7,7 +7,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.feku.englishcards.R;
-import com.feku.englishcards.fragment.DailyProgressChart;
+import com.feku.englishcards.fragment.WeeklyProgressChart;
 import com.feku.englishcards.fragment.LevelsPieChart;
 import com.feku.englishcards.fragment.TotalWordsLearnt;
 
@@ -47,7 +47,7 @@ public class StatisticsActivity extends ActivityWithDrawer {
                 default:
                     return new TotalWordsLearnt();
                 case 1:
-                    return new DailyProgressChart();
+                    return new WeeklyProgressChart();
                 case 2:
                     return new LevelsPieChart();
             }
@@ -64,7 +64,7 @@ public class StatisticsActivity extends ActivityWithDrawer {
                 default:
                     return "Total words learnt";
                 case 1:
-                    return "Daily progress";
+                    return "Weekly progress";
                 case 2:
                     return "Levels pie chart";
             }

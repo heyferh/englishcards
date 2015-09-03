@@ -1,6 +1,7 @@
 package com.feku.englishcards.activity;
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -153,7 +154,18 @@ public class LeitnerModeActivity extends ActivityWithDrawer implements CardFragm
     @Override
     protected void onPause() {
         super.onPause();
-        finish();
+        new Runnable() {
+            @Override
+            public void run() {
+                SharedPreferences preferences = getSharedPreferences("english_cards", MODE_PRIVATE);
+                String key = LocalDate.now().toString();
+                long newCardsCount = cardDao.queryBuilder()
+                        .where(CardDao.Properties.Updated.eq(LocalDate.now().toDate()))
+                        .count();
+                preferences.edit().putLong(key, newCardsCount).commit();
+                finish();
+            }
+        }.run();
     }
 
     @Override

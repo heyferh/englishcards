@@ -4,13 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <org.eazegraph.lib.charts.BarChart xmlns:app="http://schemas.android.com/apk/res-auto"
+    <org.eazegraph.lib.charts.BarChart
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/barchart"
         android:layout_width="match_parent"
         android:layout_height="256dp"
         android:padding="10dp"
-        app:egBarWidth="20dp"
         app:egFixedBarWidth="true"
-        app:egLegendHeight="40dp" />
+        app:egBarWidth="20dp"
+        app:egLegendHeight="40dp"/>
 
 </LinearLayout>

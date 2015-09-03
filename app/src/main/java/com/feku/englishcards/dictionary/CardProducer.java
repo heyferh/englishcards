@@ -15,12 +15,12 @@ import java.util.Stack;
  * Created by feku on 8/14/2015.
  */
 public class CardProducer {
-    private Long dictionaryId = -1L;
     private int cardLevel = 0;
+    private Long dictionaryId = -1L;
     private Stack<Card> cardStack = new Stack<>();
-    private CardDao cardDao;
-    private DictionaryDao dictionaryDao;
     private Stack<Card> leitnerStack = new Stack<>();
+    private DictionaryDao dictionaryDao;
+    private CardDao cardDao;
 
     public Card getAnotherCard(Long dictionaryId) {
         if (!this.dictionaryId.equals(dictionaryId)) {
