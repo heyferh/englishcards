@@ -26,9 +26,9 @@ public class LevelsPieChart extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.levels_pie_chart_layout, container, false);
         PieChart mPieChart = (PieChart) rootView.findViewById(R.id.piechart);
-        mPieChart.addPieSlice(new PieModel("Level 2", getCardsByLevel(2), Color.parseColor("#56B7F1")));
-        mPieChart.addPieSlice(new PieModel("Level 3", getCardsByLevel(3), Color.parseColor("#CDA67F")));
-        mPieChart.addPieSlice(new PieModel("Learned", getCardsByLevel(4), Color.parseColor("#FED70E")));
+        mPieChart.addPieSlice(new PieModel("Level 2", getCardsByLevel(2), Color.parseColor("#3F51B5")));
+        mPieChart.addPieSlice(new PieModel("Level 3", getCardsByLevel(3), Color.parseColor("#FFC107")));
+        mPieChart.addPieSlice(new PieModel("Learned", getCardsByLevel(4), Color.parseColor("#009688")));
         mPieChart.startAnimation();
         return rootView;
     }
