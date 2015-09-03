@@ -30,7 +30,6 @@ public class StatisticsActivity extends ActivityWithDrawer {
         getSupportActionBar().setTitle("Statistics");
         drawer = drawer.withSelectedItem(5);
         drawer.build();
-
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
