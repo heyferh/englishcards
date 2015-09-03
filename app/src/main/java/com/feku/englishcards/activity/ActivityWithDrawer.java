@@ -52,6 +52,8 @@ public abstract class ActivityWithDrawer extends AppCompatActivity {
                             case 3:
                                 startActivity(new Intent(getApplicationContext(), LeitnerModeActivity.class));
                                 break;
+                            case 5:
+                                startActivity(new Intent(getApplicationContext(),StatisticsActivity.class));
                         }
                     }
                 });

@@ -18,6 +18,7 @@
         <activity android:name=".activity.RegularCardActivity"></activity>
         <activity android:name=".activity.FavouriteCardActivity"></activity>
         <activity android:name=".activity.LeitnerModeActivity"></activity>
+        <activity android:name=".activity.StatisticsActivity"></activity>
     </application>
 
 </manifest>

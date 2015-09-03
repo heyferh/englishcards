@@ -4,8 +4,6 @@ import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
 import android.speech.tts.TextToSpeech;
 
-import com.bettervectordrawable.Convention;
-import com.bettervectordrawable.VectorDrawableCompat;
 import com.feku.englishcards.dao.CardDao;
 import com.feku.englishcards.dao.DictionaryDao;
 import com.feku.englishcards.dao.util.DaoMaster;
@@ -58,8 +56,6 @@ public class App extends Application {
         if (!getSharedPreferences("english_cards", MODE_PRIVATE).getBoolean("DB_EXIST", false)) {
             DataBaseLoader.loadDictionaries();
         }
-        int[] ids = VectorDrawableCompat.findVectorResourceIdsByConvention(getResources(), R.drawable.class, Convention.ResourceNameHasVectorSuffix);
-        VectorDrawableCompat.enableResourceInterceptionFor(getResources(), ids);
     }
 
     public static CardProducer getCardProducer() {
