@@ -71,7 +71,7 @@ public class SelectDictionaryActivity extends ActivityWithDrawer implements Adap
             dictNames.add(dictionary.getTitle());
         }
         adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, dictNames);
+                R.layout.simple_list_item_1, dictNames);
         dictList.setAdapter(adapter);
         dictList.setOnItemClickListener(this);
         getSupportActionBar().setTitle("Choose topic");

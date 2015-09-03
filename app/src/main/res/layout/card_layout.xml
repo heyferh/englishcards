@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="330dp"
         android:layout_gravity="center_horizontal|top"
-        card_view:cardBackgroundColor="#84ffff"
+        card_view:cardBackgroundColor="#FFFFFF"
+        card_view:cardElevation="4dp"
         card_view:cardCornerRadius="6dp">
 
         <FrameLayout
@@ -24,6 +25,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="WORD"
+                android:textColor="@android:color/black"
                 android:textSize="32dp" />
 
             <TextView
@@ -34,6 +36,7 @@
                 android:alpha="0.2"
                 android:gravity="center"
                 android:text="TRANSLATION"
+                android:textColor="@android:color/black"
                 android:textSize="18dp" />
 
 
@@ -41,16 +44,16 @@
                 android:id="@+id/speech"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:button="@drawable/ic_volume_high_black_24dp"
                 android:layout_gravity="left|top"
+                android:button="@drawable/ic_volume_high_black_24dp"
                 android:checked="false" />
 
             <CheckBox
                 android:id="@+id/favourite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:button="@drawable/star"
-                android:layout_gravity="right|top" />
+                android:layout_gravity="right|top"
+                android:button="@drawable/star" />
         </FrameLayout>
     </android.support.v7.widget.CardView>
 </FrameLayout>

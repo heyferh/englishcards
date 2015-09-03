@@ -2,7 +2,7 @@
     xmlns:myApp="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_search"
-        android:icon="@drawable/ic_magnify_black_24dp"
+        android:icon="@drawable/ic_magnify_white_24dp"
         android:title="@string/action_search"
         myApp:actionViewClass="android.support.v7.widget.SearchView"
         myApp:showAsAction="ifRoom|collapseActionView" />

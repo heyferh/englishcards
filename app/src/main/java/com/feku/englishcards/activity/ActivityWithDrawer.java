@@ -2,7 +2,7 @@ package com.feku.englishcards.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,7 +18,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 /**
  * Created by feku on 8/26/2015.
  */
-public abstract class ActivityWithDrawer extends AppCompatActivity {
+public abstract class ActivityWithDrawer extends ActionBarActivity {
     protected Drawer drawer;
 
     @Override
@@ -31,6 +31,7 @@ public abstract class ActivityWithDrawer extends AppCompatActivity {
                 .withSelectedItem(2)
                 .withActivity(this)
                 .withToolbar(toolbar)
+                .withActionBarDrawerToggle(true)
                 .withHeader(R.layout.drawer_header_layout)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_browse).withIcon(FontAwesome.Icon.faw_archive).withIdentifier(1),
