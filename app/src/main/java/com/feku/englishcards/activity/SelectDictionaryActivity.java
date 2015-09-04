@@ -75,11 +75,13 @@ public class SelectDictionaryActivity extends ActivityWithDrawer implements Adap
         dictList.setAdapter(adapter);
         dictList.setOnItemClickListener(this);
         getSupportActionBar().setTitle("Choose topic");
+//        new NotificationTask().execute(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+//        stopService(new Intent(this, LeitnerService.class));
         finish();
     }
 

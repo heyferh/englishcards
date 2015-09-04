@@ -18,7 +18,6 @@ public class DailyCardsCounter extends AsyncTask<Activity, Void, Void> {
 
     @Override
     protected Void doInBackground(Activity... params) {
-
         SharedPreferences preferences = params[0].getSharedPreferences("english_cards", Context.MODE_PRIVATE);
         String key = LocalDate.now().toString();
         long newCardsCount = cardDao.queryBuilder()

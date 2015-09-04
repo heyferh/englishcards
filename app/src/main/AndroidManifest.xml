@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.feku.englishcards">
+    package="com.feku.englishcards" >
 
     <application
         android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity"></activity>
-        <activity android:name=".activity.SelectDictionaryActivity">
+        android:theme="@style/AppTheme" >
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.SelectDictionaryActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RegularCardActivity"></activity>
-        <activity android:name=".activity.FavouriteCardActivity"></activity>
-        <activity android:name=".activity.LeitnerModeActivity"></activity>
-        <activity android:name=".activity.StatisticsActivity"></activity>
+        <activity android:name=".activity.RegularCardActivity" />
+        <activity android:name=".activity.FavouriteCardActivity" />
+        <activity android:name=".activity.LeitnerModeActivity" />
+        <activity android:name=".activity.StatisticsActivity" />
+        <service
+            android:name=".service.LeitnerService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+        <receiver android:name=".receiver.LeitnerNotification" />
     </application>
 
 </manifest>
