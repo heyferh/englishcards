@@ -1,7 +1,6 @@
 package com.feku.englishcards.activity;
 
 import android.app.Fragment;
-import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,6 +14,7 @@ import com.feku.englishcards.entity.Card;
 import com.feku.englishcards.exception.NoCardsException;
 import com.feku.englishcards.fragment.CardFragment;
 import com.feku.englishcards.fragment.EmptyCardFragment;
+import com.feku.englishcards.task.DailyCardsCounter;
 
 import org.joda.time.LocalDate;
 
@@ -154,18 +154,8 @@ public class LeitnerModeActivity extends ActivityWithDrawer implements CardFragm
     @Override
     protected void onPause() {
         super.onPause();
-        new Runnable() {
-            @Override
-            public void run() {
-                SharedPreferences preferences = getSharedPreferences("english_cards", MODE_PRIVATE);
-                String key = LocalDate.now().toString();
-                long newCardsCount = cardDao.queryBuilder()
-                        .where(CardDao.Properties.Updated.eq(LocalDate.now().toDate()))
-                        .count();
-                preferences.edit().putLong(key, newCardsCount).commit();
-                finish();
-            }
-        }.run();
+        new DailyCardsCounter().execute(this);
+        finish();
     }
 
     @Override
