@@ -30,7 +30,6 @@ public abstract class ActivityWithDrawer extends AppCompatActivity {
                 .withSelectedItem(2)
                 .withActivity(this)
                 .withToolbar(toolbar)
-                .withActionBarDrawerToggle(true)
                 .withHeader(R.layout.drawer_header_layout)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.drawer_item_browse).withIcon(FontAwesome.Icon.faw_archive),

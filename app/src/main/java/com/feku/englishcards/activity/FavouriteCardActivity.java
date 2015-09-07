@@ -1,6 +1,8 @@
 package com.feku.englishcards.activity;
 
 import android.app.Fragment;
+import android.support.v4.app.NavUtils;
+import android.view.MenuItem;
 
 import com.feku.englishcards.App;
 import com.feku.englishcards.R;
@@ -22,8 +24,11 @@ public class FavouriteCardActivity extends ActivityWithDrawer implements CardFra
     @Override
     protected void initOnCreate() {
         getSupportActionBar().setTitle("Favourites");
-        drawer = drawer.withSelectedItem(1);
+        drawer = drawer
+                .withSelectedItem(1)
+                .withActionBarDrawerToggle(false);
         drawer.build();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         onCardTapped();
     }
 
@@ -65,5 +70,15 @@ public class FavouriteCardActivity extends ActivityWithDrawer implements CardFra
     protected void onPause() {
         super.onPause();
         finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

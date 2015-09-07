@@ -1,5 +1,8 @@
 package com.feku.englishcards.activity;
 
+import android.support.v4.app.NavUtils;
+import android.view.MenuItem;
+
 import com.feku.englishcards.App;
 import com.feku.englishcards.R;
 import com.feku.englishcards.dao.DictionaryDao;
@@ -17,8 +20,11 @@ public class RegularCardActivity extends ActivityWithDrawer implements CardFragm
         long dictionaryId = (long) getIntent().getExtras().getInt("DICTIONARY_ID");
         String dictionaryTitle = dictionaryDao.load(dictionaryId).getTitle();
         getSupportActionBar().setTitle(dictionaryTitle);
-        drawer = drawer.withSelectedItem(0);
+        drawer = drawer
+                .withSelectedItem(0)
+                .withActionBarDrawerToggle(false);
         drawer.build();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         onCardTapped();
     }
 
@@ -44,5 +50,15 @@ public class RegularCardActivity extends ActivityWithDrawer implements CardFragm
     protected void onPause() {
         super.onPause();
         finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

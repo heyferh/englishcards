@@ -15,6 +15,7 @@ import com.feku.englishcards.App;
 import com.feku.englishcards.R;
 import com.feku.englishcards.dao.DictionaryDao;
 import com.feku.englishcards.entity.Dictionary;
+import com.mikepenz.materialdrawer.Drawer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,9 +63,12 @@ public class SelectDictionaryActivity extends ActivityWithDrawer implements Adap
 
     @Override
     protected void initOnCreate() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         drawer = drawer
+                .withActionBarDrawerToggle(true)
                 .withSelectedItem(0);
-        drawer.build();
+        Drawer.Result result = drawer.build();
+        result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
         ListView dictList = (ListView) findViewById(R.id.dictList);
         dictNames = new ArrayList<>();
         for (Dictionary dictionary : dictionaryDao.loadAll()) {
@@ -75,23 +79,10 @@ public class SelectDictionaryActivity extends ActivityWithDrawer implements Adap
         dictList.setAdapter(adapter);
         dictList.setOnItemClickListener(this);
         getSupportActionBar().setTitle("Choose topic");
-//        new NotificationTask().execute(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-//        stopService(new Intent(this, LeitnerService.class));
-        finish();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-        }
-        return true;
     }
 }

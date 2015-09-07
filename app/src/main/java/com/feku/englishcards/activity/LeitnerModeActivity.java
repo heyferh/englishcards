@@ -1,6 +1,7 @@
 package com.feku.englishcards.activity;
 
 import android.app.Fragment;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,8 +34,11 @@ public class LeitnerModeActivity extends ActivityWithDrawer implements CardFragm
     protected void initOnCreate() {
         CARD_LEVEL = 1;
         getSupportActionBar().setTitle("Leitner mode");
-        drawer = drawer.withSelectedItem(2);
+        drawer = drawer
+                .withSelectedItem(2)
+                .withActionBarDrawerToggle(false);
         drawer.build();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         findViewById(R.id.know).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +132,11 @@ public class LeitnerModeActivity extends ActivityWithDrawer implements CardFragm
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
         if (item.getTitle().toString().contains(String.valueOf(CARD_LEVEL))) {
             return true;
         }
