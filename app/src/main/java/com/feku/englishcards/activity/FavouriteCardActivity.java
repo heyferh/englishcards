@@ -22,7 +22,7 @@ public class FavouriteCardActivity extends ActivityWithDrawer implements CardFra
     @Override
     protected void initOnCreate() {
         getSupportActionBar().setTitle("Favourites");
-        drawer = drawer.withSelectedItem(2);
+        drawer = drawer.withSelectedItem(1);
         drawer.build();
         onCardTapped();
     }

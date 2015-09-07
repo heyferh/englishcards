@@ -10,8 +10,8 @@ import android.widget.AdapterView;
 import com.feku.englishcards.R;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 /**
@@ -33,28 +33,27 @@ public abstract class ActivityWithDrawer extends AppCompatActivity {
                 .withActionBarDrawerToggle(true)
                 .withHeader(R.layout.drawer_header_layout)
                 .addDrawerItems(
-                        new SectionDrawerItem().withName(R.string.categories),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_browse).withIcon(FontAwesome.Icon.faw_archive),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_view_starred).withIcon(FontAwesome.Icon.faw_star),
                         new PrimaryDrawerItem().withName(R.string.drawer_item_leitner_system).withIcon(FontAwesome.Icon.faw_line_chart),
-                        new SectionDrawerItem().withName(R.string.drawer_item_settings),
+                        new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName(R.string.statistics).withIcon(FontAwesome.Icon.faw_cog))
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem iDrawerItem) {
                         switch (i) {
-                            default:
-                            case 2:
+                            case 1:
                                 startActivity(new Intent(getApplicationContext(), SelectDictionaryActivity.class));
                                 break;
-                            case 3:
+                            case 2:
                                 startActivity(new Intent(getApplicationContext(), FavouriteCardActivity.class));
                                 break;
-                            case 4:
+                            case 3:
                                 startActivity(new Intent(getApplicationContext(), LeitnerModeActivity.class));
                                 break;
-                            case 6:
-                                startActivity(new Intent(getApplicationContext(),StatisticsActivity.class));
+                            case 5:
+                                startActivity(new Intent(getApplicationContext(), StatisticsActivity.class));
+                                break;
                         }
                     }
                 });

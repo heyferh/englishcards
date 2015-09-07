@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="material_drawer_accent">@color/accent_material_light</color>
+    <color name="material_drawer_accent">#009688</color>
     <color name="material_drawer_background">#F5F5F5</color>
     <color name="material_drawer_divider">#B6B6B6</color>
     <color name="material_drawer_hint_text">#B8B8B8</color>
     <color name="material_drawer_icons">#FFF</color>
-    <color name="material_drawer_primary">#2196F3</color>
-    <color name="material_drawer_primary_dark">#1976D2</color>
+    <color name="material_drawer_primary">#009688</color>
+    <color name="material_drawer_primary_dark">#004D40</color>
     <color name="material_drawer_primary_light">#BBDEFB</color>
     <color name="material_drawer_primary_text">#212121</color>
     <color name="material_drawer_secondary_text">#727272</color>
     <color name="material_drawer_selected">#E8E8E8</color>
-    <color name="material_drawer_selected_text">#2196F3</color>
+    <color name="material_drawer_selected_text">#009688</color>
 </resources>

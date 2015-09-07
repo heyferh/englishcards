@@ -63,7 +63,7 @@ public class SelectDictionaryActivity extends ActivityWithDrawer implements Adap
     @Override
     protected void initOnCreate() {
         drawer = drawer
-                .withSelectedItem(1);
+                .withSelectedItem(0);
         drawer.build();
         ListView dictList = (ListView) findViewById(R.id.dictList);
         dictNames = new ArrayList<>();
