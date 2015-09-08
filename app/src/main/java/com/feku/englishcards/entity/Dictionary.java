@@ -1,5 +1,6 @@
 package com.feku.englishcards.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.feku.englishcards.dao.CardDao;
@@ -12,7 +13,7 @@ import de.greenrobot.dao.DaoException;
 /**
  * Entity mapped to table "DICTIONARY".
  */
-public class Dictionary {
+public class Dictionary implements Serializable{
 
     private Long id;
     /** Not-null value. */
