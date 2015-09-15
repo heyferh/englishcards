@@ -29,7 +29,7 @@ public class LevelsPieChart extends Fragment {
         mPieChart.addPieSlice(new PieModel("Level 2", getCardsByLevel(2), Color.parseColor("#3F51B5")));
         mPieChart.addPieSlice(new PieModel("Level 3", getCardsByLevel(3), Color.parseColor("#FFC107")));
         mPieChart.addPieSlice(new PieModel("Learned", getCardsByLevel(4), Color.parseColor("#009688")));
-        mPieChart.startAnimation();
+//        mPieChart.startAnimation();
         return rootView;
     }
 

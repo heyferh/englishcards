@@ -57,4 +57,18 @@
         android:propertyName="alpha"
         android:startOffset="@integer/card_flip_time_half"
         android:duration="1" />
+
+    <objectAnimator
+        android:duration="@integer/card_flip_time_half"
+        android:propertyName="scaleX"
+        android:startOffset="@integer/card_flip_time_half"
+        android:valueFrom="0.5"
+        android:valueTo="1" />
+
+    <objectAnimator
+        android:duration="@integer/card_flip_time_half"
+        android:propertyName="scaleY"
+        android:startOffset="@integer/card_flip_time_half"
+        android:valueFrom="0.5"
+        android:valueTo="1" />
 </set>

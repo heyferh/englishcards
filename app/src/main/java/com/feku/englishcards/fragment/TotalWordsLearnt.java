@@ -35,7 +35,7 @@ public class TotalWordsLearnt extends Fragment {
         for (LocalDate date = now.minusDays(5); date.isBefore(now); date = date.plusDays(1)) {
             mBarChart.addBar(createBar(date));
         }
-        mBarChart.startAnimation();
+//        mBarChart.startAnimation();
         return rootView;
     }
 

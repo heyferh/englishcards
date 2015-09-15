@@ -36,7 +36,7 @@ public class WeeklyProgressChart extends Fragment {
             series.addPoint(createValueLinePoint(date));
         }
         mCubicValueLineChart.addSeries(series);
-        mCubicValueLineChart.startAnimation();
+//        mCubicValueLineChart.startAnimation();
         return rootView;
     }
 
